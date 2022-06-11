@@ -21,7 +21,13 @@ const List = () => {
     <>
       {isLoading && <p>loading...</p>}
       {isError && <p>error...</p>}
-      {data && console.log(data)}
+      {data && (
+        <ul>
+          {data.map(({ product_id, product_name }) => (
+            <li key={product_id}>{product_name}</li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };

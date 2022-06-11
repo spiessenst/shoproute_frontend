@@ -8,6 +8,7 @@ const shopListApi = createApi({
   endpoints: (builder) => ({
     getAllLists: builder.query({
       query: () => "",
+      providesTags: ["LISTALL"],
     }),
     getListforStore: builder.query({
       query: ({ shoppinglist_id, store_id }) =>
