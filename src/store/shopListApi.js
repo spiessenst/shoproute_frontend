@@ -8,14 +8,30 @@ const shopListApi = createApi({
   endpoints: (builder) => ({
     getAllLists: builder.query({
       query: () => "",
-      providesTags: ["LISTALL"],
     }),
     getListforStore: builder.query({
       query: ({ shoppinglist_id, store_id }) =>
         `/${shoppinglist_id}/${store_id}`,
+      providesTags: ["LISTALL"],
+    }),
+    patchQty: builder.mutation({
+      query: ({ product_id, shoppinglist_id, qty }) => ({
+        url: "",
+        method: "PATCH",
+        body: {
+          product_id,
+          shoppinglist_id,
+          qty,
+        },
+      }),
+      invalidatesTags: ["LISTALL"],
     }),
   }),
 });
 
 export default shopListApi;
-export const { useGetAllListsQuery, useGetListforStoreQuery } = shopListApi;
+export const {
+  useGetAllListsQuery,
+  useGetListforStoreQuery,
+  usePatchQtyMutation,
+} = shopListApi;
