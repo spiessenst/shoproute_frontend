@@ -1,17 +1,23 @@
-import Lists from "./components/Lists";
-import Stores from "./components/Stores";
-import List from "./components/List";
-import Addproducts from "./components/Addproducts";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Logo from "./components/Logo";
+import AddProduct from "./pages/AddProduct";
+import PreviousLists from "./pages/PreviousLists";
+import Main from "./pages/Main";
+
 import "./styles/style.scss";
 
 const App = () => {
   return (
-    <div>
-      <Lists />
-      <Stores />
-      <Addproducts />
-      <List />
-    </div>
+    <Router>
+      <div className="container">
+        <Logo />
+        <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/AddProduct" element={<AddProduct />}></Route>
+          <Route path="/PreviousLists" element={<PreviousLists />}></Route>
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

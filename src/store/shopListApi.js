@@ -8,6 +8,7 @@ const shopListApi = createApi({
   endpoints: (builder) => ({
     getAllLists: builder.query({
       query: () => "/lists",
+      providesTags: ["LISTSALL"],
     }),
     getListforStore: builder.query({
       query: ({ shoppinglist_id, store_id }) =>
@@ -60,6 +61,26 @@ const shopListApi = createApi({
       }),
       invalidatesTags: ["LISTALL"],
     }),
+    postnewnList: builder.mutation({
+      query: ({ shoppinglist_name }) => ({
+        url: "/lists",
+        method: "POST",
+        body: {
+          shoppinglist_name,
+        },
+      }),
+      invalidatesTags: ["LISTALL"],
+    }),
+    listDelete: builder.mutation({
+      query: ({ shoppinglist_id }) => ({
+        url: "/lists",
+        method: "DELETE",
+        body: {
+          shoppinglist_id,
+        },
+      }),
+      invalidatesTags: ["LISTSALL"],
+    }),
   }),
 });
 
@@ -71,4 +92,6 @@ export const {
   usePatchCheckedMutation,
   usePatchDeleteMutation,
   usePostproductOnListMutation,
+  usePostnewnListMutation,
+  useListDeleteMutation,
 } = shopListApi;

@@ -5,6 +5,7 @@ import {
   usePatchCheckedMutation,
   usePatchDeleteMutation,
 } from "../store/shopListApi";
+import SingleProduct from "./SingleProduct";
 
 const List = () => {
   const store_id = useSelector((s) => s.storeState.store_id);
@@ -66,7 +67,6 @@ const List = () => {
   };
   const handleDelete = async (e) => {
     e.preventDefault();
-
     deleteProduct({
       product_id: e.target.dataset.id,
       shoppinglist_id,
@@ -76,41 +76,17 @@ const List = () => {
     <>
       {isLoading && <p>loading...</p>}
       {isError && <p>error...</p>}
-
       {data && (
-        <ul>
-          {data.map(({ product_id, product_name, qty, checked }) => (
-            <li key={product_id}>
-              {product_name} {qty}
-              <button
-                data-id={product_id}
-                data-qty={qty}
-                onClick={handleIncrement}
-              >
-                +
-              </button>
-              <button
-                data-id={product_id}
-                data-qty={qty}
-                onClick={handleDecrement}
-              >
-                -
-              </button>
-              <button
-                className={!parseInt(checked) ? "check" : "check check--on"}
-                data-id={product_id}
-                onClick={handleChecked}
-              >
-                {checked}
-              </button>
-              <button
-                className="delete"
-                data-id={product_id}
-                onClick={handleDelete}
-              >
-                DELETE
-              </button>
-            </li>
+        <ul className="products__list">
+          {data.map((item) => (
+            <SingleProduct
+              key={item.product_id}
+              item={item}
+              handleIncrement={handleIncrement}
+              handleDecrement={handleDecrement}
+              handleDelete={handleDelete}
+              handleChecked={handleChecked}
+            />
           ))}
         </ul>
       )}

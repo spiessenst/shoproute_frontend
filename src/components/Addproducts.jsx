@@ -69,6 +69,8 @@ const Addproducts = () => {
       {isError1 && <p>error...</p>}
       {isSuccess && (
         <CreatableSelect
+          className="productSelect"
+          classNamePrefix="inner"
           placeholder="Geef een product op"
           options={items}
           isClearable

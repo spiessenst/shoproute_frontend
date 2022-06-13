@@ -1,6 +1,7 @@
 import { setShoppinglist } from "../store/list";
 import { useGetAllListsQuery } from "../store/shopListApi";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Lists = () => {
   const { data, isError, isLoading } = useGetAllListsQuery(undefined, {
@@ -14,14 +15,17 @@ const Lists = () => {
       {isLoading && <p>loading...</p>}
       {isError && <p>error...</p>}
       {data && (
-        <ul>
+        <ul className="lists">
           {data.map(({ shoppinglist_id, shoppinglist_name }) => (
-            <li
-              key={shoppinglist_id}
-              onClick={() => dispatch(setShoppinglist(shoppinglist_id))}
-            >
-              {shoppinglist_name}
-            </li>
+            <Link key={shoppinglist_id} to="/AddProduct">
+              <li
+                className="lists__item"
+                key={shoppinglist_id}
+                onClick={() => dispatch(setShoppinglist(shoppinglist_id))}
+              >
+                <span> {shoppinglist_name}</span>
+              </li>
+            </Link>
           ))}
         </ul>
       )}
