@@ -1,11 +1,19 @@
 import CreatableSelect from "react-select/creatable";
-import { DatalistInput, useComboboxControls } from "react-datalist-input";
-import { useState, useCallback, useEffect } from "react";
-import { useGetAllProductsQuery } from "../store/productsApi";
+import {
+  useGetAllProductsQuery,
+  usePostNewproductMutation,
+} from "../store/productsApi";
 import { useSelector } from "react-redux";
+import Departments from "./Departments";
+import { useDispatch } from "react-redux";
+import { setProducts } from "../store/products";
+import { useState } from "react";
 
 const Addproducts2 = () => {
   let items;
+  const [showDepartments, setShowDepartments] = useState(false);
+
+
   const { data, isError, isLoading, isSuccess } = useGetAllProductsQuery(
     undefined,
     {
@@ -21,23 +29,23 @@ const Addproducts2 = () => {
       department_id,
     }));
   }
-  const handleInputChange = (inputValue) => {
-    console.log(inputValue);
-  };
+  const dispatch = useDispatch();
+  const [PostNewProduct] = usePostNewproductMutation();
 
   const handleChange = (product) => {
-    console.log(product);
+    if (product.__isNew__) {
+      setShowDepartments(true);
+      dispatch(setProducts(product.value));
+    }
   };
+
   return (
-    isSuccess && (
-      <CreatableSelect
-        className="react-select-container"
-        options={items}
-        isClearable
-        onInputChange={handleInputChange}
-        onChange={handleChange}
-      />
-    )
+    <>
+      {isSuccess && (
+        <CreatableSelect options={items} isClearable onChange={handleChange} />
+      )}
+      {showDepartments && <Departments setShowDepartments={setShowDepartments} />}
+    </>
   );
 };
 

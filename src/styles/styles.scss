@@ -62,8 +62,24 @@ mark {
   padding: var(--padding);
 }
 
-.react-select-container {
+.filter {
+  &__menu {
+    margin: 0.125rem auto;
+  }
 
-font-size: 15px;
- 
+  &__option {
+    background-color: rgb(223, 19, 19);
+
+    &--is-focused {
+      background-color: rgb(13, 51, 63);
+    }
+  }
+
+  &__group {
+    padding: 0;
+  }
+
+  &__menu-portal {
+    border: 1px solid darkblue;
+  }
 }

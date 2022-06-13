@@ -3,6 +3,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import shopListApi from "./shopListApi";
 import storesApi from "./storesApi";
 import productsApi from "./productsApi";
+import departmentsApi from "./departmentsApi";
 import storeSlice from "./store";
 import shoppinglistSlice from "./list";
 import productsSlice from "./products";
@@ -12,6 +13,7 @@ const store = configureStore({
     [shopListApi.reducerPath]: shopListApi.reducer,
     [storesApi.reducerPath]: storesApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    [departmentsApi.reducerPath]: departmentsApi.reducer,
     [storeSlice.name]: storeSlice.reducer,
     [shoppinglistSlice.name]: shoppinglistSlice.reducer,
     [productsSlice.name]: productsSlice.reducer,
@@ -21,6 +23,7 @@ const store = configureStore({
     shopListApi.middleware,
     storesApi.middleware,
     productsApi.middleware,
+    departmentsApi.middleware,
   ],
 });
 

@@ -9,8 +9,19 @@ const productsApi = createApi({
     getAllProducts: builder.query({
       query: () => "/products",
     }),
+    postNewproduct: builder.mutation({
+      query: ({ product_name, department_id }) => ({
+        url: "/products",
+        method: "POST",
+        body: {
+          product_name,
+          department_id,
+        },
+      }),
+    }),
   }),
 });
 
 export default productsApi;
-export const { useGetAllProductsQuery } = productsApi;
+export const { useGetAllProductsQuery, usePostNewproductMutation } =
+  productsApi;
