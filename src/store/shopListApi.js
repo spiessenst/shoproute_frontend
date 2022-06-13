@@ -49,6 +49,17 @@ const shopListApi = createApi({
       }),
       invalidatesTags: ["LISTALL"],
     }),
+    postproductOnList: builder.mutation({
+      query: ({ product_id, shoppinglist_id }) => ({
+        url: "/lists",
+        method: "POST",
+        body: {
+          product_id,
+          shoppinglist_id,
+        },
+      }),
+      invalidatesTags: ["LISTALL"],
+    }),
   }),
 });
 
@@ -59,4 +70,5 @@ export const {
   usePatchQtyMutation,
   usePatchCheckedMutation,
   usePatchDeleteMutation,
+  usePostproductOnListMutation,
 } = shopListApi;

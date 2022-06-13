@@ -1,7 +1,7 @@
 import Lists from "./components/Lists";
 import Stores from "./components/Stores";
 import List from "./components/List";
-import Addproducts2 from "./components/Addproducts2";
+import Addproducts from "./components/Addproducts";
 import "./styles/styles.scss";
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
     <div>
       <Lists />
       <Stores />
-      <Addproducts2 />
+      <Addproducts />
       <List />
     </div>
   );

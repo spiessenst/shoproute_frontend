@@ -1,30 +1,37 @@
-import { setStore } from "../store/store";
 import { useGetAllDepartmentsQuery } from "../store/departmentsApi";
-import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import {
-  useGetAllProductsQuery,
-  usePostNewproductMutation,
-} from "../store/productsApi";
+import { usePostNewproductMutation } from "../store/productsApi";
+import { usePostproductOnListMutation } from "../store/shoplistApi";
+import { useSelector } from "react-redux";
 
-const Departments = ({ setShowDepartments }) => {
+const Departments = ({ setShowDepartments, newProduct }) => {
+  const shoppinglist_id = useSelector(
+    (s) => s.shoppinglistState.shoppinglist_id
+  );
   const [department_id, setDeparment_id] = useState();
-
   const { data, isError, isLoading } = useGetAllDepartmentsQuery(undefined, {
     pollingInterval: 0,
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-  const newproductName = useSelector((s) => s.productState.newproduct);
-  const [PostNewProduct] = usePostNewproductMutation();
-  const handleClick = (e) => {
-    setDeparment_id(department_id);
 
-    PostNewProduct({
-      product_name: newproductName,
+  const [PostNewProduct] = usePostNewproductMutation();
+  const [postproductOnList] = usePostproductOnListMutation();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    // setDeparment_id(department_id);
+    const { data, error } = await PostNewProduct({
+      product_name: newProduct,
       department_id: e.target.dataset.id,
     });
-    setDeparment_id();
+    !error &&
+      postproductOnList({
+        product_id: data.product_id,
+        shoppinglist_id,
+      });
+
+    //   setDeparment_id();
     setShowDepartments(false);
   };
   return (

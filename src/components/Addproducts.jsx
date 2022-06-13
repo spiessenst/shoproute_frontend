@@ -1,13 +1,13 @@
-import { DatalistInput, useComboboxControls } from "react-datalist-input";
-import { useState, useCallback, useEffect } from "react";
+import CreatableSelect from "react-select/creatable";
 import { useGetAllProductsQuery } from "../store/productsApi";
-import { useSelector } from "react-redux";
+import Departments from "./Departments";
+import { useState } from "react";
 
 const Addproducts = () => {
   let items;
+  const [showDepartments, setShowDepartments] = useState(false);
+  const [newProduct, setNewProduct] = useState("");
 
-  const [item, setItem] = useState({});
-  const [value, setValue] = useState("");
   const { data, isError, isLoading, isSuccess } = useGetAllProductsQuery(
     undefined,
     {
@@ -16,45 +16,33 @@ const Addproducts = () => {
       refetchOnReconnect: true,
     }
   );
-
   if (isSuccess) {
     items = data.map(({ product_id, product_name, department_id }) => ({
-      id: product_id,
-      value: product_name,
+      value: product_id,
+      label: product_name,
       department_id,
     }));
   }
 
-  const onSelect = useCallback((selectedItem) => {
-    setItem(selectedItem);
-  }, []);
-
-  function HandleOnClick(e) {
-    e.preventDefault();
-    console.log(items.find((item) => item.value == value));
-    if (item.value == undefined) {
-      // console.log(value);
+  const handleChange = (product) => {
+    if (product.__isNew__) {
+      setShowDepartments(true);
+      setNewProduct(product.value);
     }
-
-    // if (item) console.log(item);
-  }
+  };
 
   return (
-    <div className="add-product">
+    <>
       {isSuccess && (
-        <DatalistInput
-          placeholder="Zoek een product"
-          onChange={(e) => setValue(item.value)}
-          onSelect={(selectedItem) => console.log(selectedItem)}
-          items={items}
-          value={item.value}
-          inputProps={{
-            required: true,
-          }}
+        <CreatableSelect options={items} isClearable onChange={handleChange} />
+      )}
+      {showDepartments && (
+        <Departments
+          setShowDepartments={setShowDepartments}
+          newProduct={newProduct}
         />
       )}
-      <button onClick={HandleOnClick}> +</button>
-    </div>
+    </>
   );
 };
 

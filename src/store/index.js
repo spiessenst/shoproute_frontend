@@ -6,7 +6,6 @@ import productsApi from "./productsApi";
 import departmentsApi from "./departmentsApi";
 import storeSlice from "./store";
 import shoppinglistSlice from "./list";
-import productsSlice from "./products";
 
 const store = configureStore({
   reducer: combineReducers({
@@ -16,7 +15,6 @@ const store = configureStore({
     [departmentsApi.reducerPath]: departmentsApi.reducer,
     [storeSlice.name]: storeSlice.reducer,
     [shoppinglistSlice.name]: shoppinglistSlice.reducer,
-    [productsSlice.name]: productsSlice.reducer,
   }),
   middleware: (getDefaultMiddleWare) => [
     ...getDefaultMiddleWare(),

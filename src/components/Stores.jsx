@@ -1,6 +1,6 @@
 import { setStore } from "../store/store";
 import { useGetAllStoresQuery } from "../store/storesApi";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Stores = () => {
   const { data, isError, isLoading } = useGetAllStoresQuery(undefined, {
@@ -8,7 +8,7 @@ const Stores = () => {
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <>
       {isLoading && <p>loading...</p>}
