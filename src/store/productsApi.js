@@ -8,6 +8,7 @@ const productsApi = createApi({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
       query: () => "/products",
+      providesTags: ["PRODUCTSALL"],
     }),
     postNewproduct: builder.mutation({
       query: ({ product_name, department_id }) => ({
@@ -18,6 +19,7 @@ const productsApi = createApi({
           department_id,
         },
       }),
+      invalidatesTags: ["PRODUCTSALL"],
     }),
   }),
 });

@@ -16,6 +16,7 @@ const Addproducts = () => {
       refetchOnReconnect: true,
     }
   );
+  
 
   if (isSuccess) {
     items = data.map(({ product_id, product_name, department_id }) => ({

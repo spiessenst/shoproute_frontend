@@ -1,40 +1,79 @@
 import CreatableSelect from "react-select/creatable";
 import { useGetAllProductsQuery } from "../store/productsApi";
+import { usePostproductOnListMutation } from "../store/shoplistApi";
+import { useGetListforStoreQuery } from "../store/shoplistApi";
 import Departments from "./Departments";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Addproducts = () => {
+  const shoppinglist_id = useSelector(
+    (s) => s.shoppinglistState.shoppinglist_id
+  );
+  const store_id = useSelector((s) => s.storeState.store_id);
   let items;
   const [showDepartments, setShowDepartments] = useState(false);
   const [newProduct, setNewProduct] = useState("");
 
-  const { data, isError, isLoading, isSuccess } = useGetAllProductsQuery(
-    undefined,
-    {
-      pollingInterval: 0,
-      refetchOnFocus: true,
-      refetchOnReconnect: true,
-    }
-  );
+  const {
+    data: productData,
+    isError: isError1,
+    isLoading: isLoading1,
+    isSuccess,
+  } = useGetAllProductsQuery(undefined, {
+    pollingInterval: 0,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
+  });
   if (isSuccess) {
-    items = data.map(({ product_id, product_name, department_id }) => ({
+    items = productData.map(({ product_id, product_name, department_id }) => ({
       value: product_id,
       label: product_name,
       department_id,
     }));
   }
 
-  const handleChange = (product) => {
-    if (product.__isNew__) {
-      setShowDepartments(true);
-      setNewProduct(product.value);
+  const { data: listData } = useGetListforStoreQuery(
+    {
+      shoppinglist_id,
+      store_id,
+    },
+    {
+      pollingInterval: 0,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
+  );
+
+  const [postproductOnList] = usePostproductOnListMutation();
+  const handleChange = async (product) => {
+    if (product) {
+      if (!listData.find((item) => item.product_id == product.value)) {
+        if (product.__isNew__) {
+          setShowDepartments(true);
+          setNewProduct(product.value);
+        } else {
+          shoppinglist_id &&
+            postproductOnList({
+              product_id: product.value,
+              shoppinglist_id,
+            });
+        }
+      }
     }
   };
 
   return (
     <>
+      {isLoading1 && <p>loading...</p>}
+      {isError1 && <p>error...</p>}
       {isSuccess && (
-        <CreatableSelect options={items} isClearable onChange={handleChange} />
+        <CreatableSelect
+          placeholder="Geef een product op"
+          options={items}
+          isClearable
+          onChange={handleChange}
+        />
       )}
       {showDepartments && (
         <Departments

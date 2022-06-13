@@ -6,8 +6,6 @@ import {
   usePatchDeleteMutation,
 } from "../store/shopListApi";
 
-
-
 const List = () => {
   const store_id = useSelector((s) => s.storeState.store_id);
   const shoppinglist_id = useSelector(
@@ -24,6 +22,7 @@ const List = () => {
       refetchOnReconnect: true,
     }
   );
+
   const [patchQty] = usePatchQtyMutation();
   const [patchChecked] = usePatchCheckedMutation();
   const [deleteProduct] = usePatchDeleteMutation();

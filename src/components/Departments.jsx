@@ -26,6 +26,7 @@ const Departments = ({ setShowDepartments, newProduct }) => {
       department_id: e.target.dataset.id,
     });
     !error &&
+      shoppinglist_id &&
       postproductOnList({
         product_id: data.product_id,
         shoppinglist_id,
