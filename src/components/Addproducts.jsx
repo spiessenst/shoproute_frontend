@@ -13,7 +13,7 @@ const Addproducts = () => {
   const shoppinglist_id = useSelector(
     (s) => s.shoppinglistState.shoppinglist_id
   );
-  const store_id = useSelector((s) => s.storeState.store_id);
+
   let items;
   const [showDepartments, setShowDepartments] = useState(false);
   const [newProduct, setNewProduct] = useState("");

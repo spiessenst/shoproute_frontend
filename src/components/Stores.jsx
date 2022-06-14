@@ -15,10 +15,11 @@ const Stores = () => {
       {isLoading && <p>loading...</p>}
       {isError && <p>error...</p>}
       {data && (
-        <ul>
+        <ul className="lists">
           {data.map(({ store_id, store_name }) => (
             <Link key={store_id} to="/AddProduct">
               <li
+                className="lists__item"
                 key={store_id}
                 onClick={() => dispatch(setStore({ store_id, store_name }))}
               >
