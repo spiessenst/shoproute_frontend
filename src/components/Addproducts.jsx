@@ -1,7 +1,10 @@
 import CreatableSelect from "react-select/creatable";
 import { useGetAllProductsQuery } from "../store/productsApi";
-import { usePostproductOnListMutation } from "../store/shoplistApi";
-import { useGetListforStoreQuery } from "../store/shoplistApi";
+import {
+  usePostproductOnListMutation,
+  useGetListforNoStoreQuery,
+} from "../store/shoplistApi";
+
 import Departments from "./Departments";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -33,10 +36,9 @@ const Addproducts = () => {
     }));
   }
 
-  const { data: listData } = useGetListforStoreQuery(
+  const { data: listData } = useGetListforNoStoreQuery(
     {
       shoppinglist_id,
-      store_id,
     },
     {
       pollingInterval: 0,
@@ -54,10 +56,10 @@ const Addproducts = () => {
           setNewProduct(product.value);
         } else {
           shoppinglist_id &&
-            postproductOnList({
+            (await postproductOnList({
               product_id: product.value,
               shoppinglist_id,
-            });
+            }));
         }
       }
     }

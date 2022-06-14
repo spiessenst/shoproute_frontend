@@ -1,6 +1,7 @@
 import { setStore } from "../store/store";
 import { useGetAllStoresQuery } from "../store/storesApi";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Stores = () => {
   const { data, isError, isLoading } = useGetAllStoresQuery(undefined, {
@@ -16,9 +17,14 @@ const Stores = () => {
       {data && (
         <ul>
           {data.map(({ store_id, store_name }) => (
-            <li key={store_id} onClick={() => dispatch(setStore(store_id))}>
-              {store_name}
-            </li>
+            <Link key={store_id} to="/AddProduct">
+              <li
+                key={store_id}
+                onClick={() => dispatch(setStore({ store_id, store_name }))}
+              >
+                {store_name}
+              </li>
+            </Link>
           ))}
         </ul>
       )}

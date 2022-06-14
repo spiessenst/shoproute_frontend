@@ -21,7 +21,11 @@ const Lists = () => {
               <li
                 className="lists__item"
                 key={shoppinglist_id}
-                onClick={() => dispatch(setShoppinglist(shoppinglist_id))}
+                onClick={() =>
+                  dispatch(
+                    setShoppinglist({ shoppinglist_id, shoppinglist_name })
+                  )
+                }
               >
                 <span> {shoppinglist_name}</span>
               </li>

@@ -1,17 +1,23 @@
 import { Link } from "react-router-dom";
 import { setShoppinglist } from "../store/list";
-import { usePostnewnListMutation } from "../store/shopListApi";
+import { usePostnewListMutation } from "../store/shopListApi";
 import { useDispatch } from "react-redux";
 import { formatDate } from "../js/functions";
 
 const Main = () => {
-  const [postnewnList] = usePostnewnListMutation();
+  const [postnewList] = usePostnewListMutation();
   const dispatch = useDispatch();
   const handleClick = async () => {
-    const { data, error } = await postnewnList({
+    const { data, error } = await postnewList({
       shoppinglist_name: "Mijn nieuwe lijst " + formatDate(new Date()),
     });
-    !error && dispatch(setShoppinglist(data.shoppinglist_id));
+    !error &&
+      dispatch(
+        setShoppinglist({
+          shoppinglist_id: data.shoppinglist_id,
+          shoppinglist_name: data.shoppinglist_name,
+        })
+      );
   };
   return (
     <>

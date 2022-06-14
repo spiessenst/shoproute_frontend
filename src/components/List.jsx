@@ -30,7 +30,7 @@ const List = () => {
 
   const handleIncrement = async (e) => {
     e.preventDefault();
-    patchQty({
+    await patchQty({
       product_id: e.target.dataset.id,
       shoppinglist_id,
       qty: parseInt(e.target.dataset.qty) + 1,
@@ -40,11 +40,11 @@ const List = () => {
   const handleDecrement = async (e) => {
     e.preventDefault();
     e.target.dataset.qty > 1 &&
-      patchQty({
+      (await patchQty({
         product_id: e.target.dataset.id,
         shoppinglist_id,
         qty: parseInt(e.target.dataset.qty) - 1,
-      });
+      }));
   };
 
   const handleChecked = async (e) => {
@@ -59,7 +59,7 @@ const List = () => {
       checked = 0;
     }
 
-    patchChecked({
+    await patchChecked({
       product_id: e.target.dataset.id,
       shoppinglist_id,
       checked,
@@ -67,7 +67,7 @@ const List = () => {
   };
   const handleDelete = async (e) => {
     e.preventDefault();
-    deleteProduct({
+    await deleteProduct({
       product_id: e.target.dataset.id,
       shoppinglist_id,
     });

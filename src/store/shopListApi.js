@@ -15,6 +15,10 @@ const shopListApi = createApi({
         `/lists/${shoppinglist_id}/${store_id}`,
       providesTags: ["LISTALL"],
     }),
+    getListforNoStore: builder.query({
+      query: ({ shoppinglist_id }) => `/lists/${shoppinglist_id}`,
+      providesTags: ["LISTNOSTORE"],
+    }),
     patchQty: builder.mutation({
       query: ({ product_id, shoppinglist_id, qty }) => ({
         url: "/lists",
@@ -48,7 +52,7 @@ const shopListApi = createApi({
           shoppinglist_id,
         },
       }),
-      invalidatesTags: ["LISTALL"],
+      invalidatesTags: ["LISTALL", "LISTNOSTORE"],
     }),
     postproductOnList: builder.mutation({
       query: ({ product_id, shoppinglist_id }) => ({
@@ -59,9 +63,9 @@ const shopListApi = createApi({
           shoppinglist_id,
         },
       }),
-      invalidatesTags: ["LISTALL"],
+      invalidatesTags: ["LISTALL", "LISTNOSTORE"],
     }),
-    postnewnList: builder.mutation({
+    postnewList: builder.mutation({
       query: ({ shoppinglist_name }) => ({
         url: "/lists",
         method: "POST",
@@ -69,7 +73,7 @@ const shopListApi = createApi({
           shoppinglist_name,
         },
       }),
-      invalidatesTags: ["LISTALL"],
+      invalidatesTags: ["LISTSALL"],
     }),
     listDelete: builder.mutation({
       query: ({ shoppinglist_id }) => ({
@@ -81,6 +85,17 @@ const shopListApi = createApi({
       }),
       invalidatesTags: ["LISTSALL"],
     }),
+    listNameUpdate: builder.mutation({
+      query: ({ shoppinglist_id, shoppinglist_name }) => ({
+        url: "/lists",
+        method: "PATCH",
+        body: {
+          shoppinglist_id,
+          shoppinglist_name,
+        },
+      }),
+      invalidatesTags: ["LISTSALL"],
+    }),
   }),
 });
 
@@ -88,10 +103,12 @@ export default shopListApi;
 export const {
   useGetAllListsQuery,
   useGetListforStoreQuery,
+  useGetListforNoStoreQuery,
   usePatchQtyMutation,
   usePatchCheckedMutation,
   usePatchDeleteMutation,
   usePostproductOnListMutation,
-  usePostnewnListMutation,
+  usePostnewListMutation,
   useListDeleteMutation,
+  useListNameUpdateMutation,
 } = shopListApi;
