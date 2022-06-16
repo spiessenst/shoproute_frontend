@@ -3,6 +3,7 @@ import Addproducts from "../components/Addproducts";
 import DeleteList from "../components/DeleteList";
 import ListName from "../components/ListName";
 import ChooseStoreButton from "../components/ChooseStoreButton";
+import Main from "../pages/Main";
 
 const AddProduct = () => {
   return (
@@ -12,6 +13,8 @@ const AddProduct = () => {
       <Addproducts />
       <List />
       <DeleteList />
+      <Main />
+
     </>
   );
 };

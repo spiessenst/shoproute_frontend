@@ -8,7 +8,7 @@ const shopListApi = createApi({
   }),
   endpoints: (builder) => ({
     getAllLists: builder.query({
-      query: () => "/lists",
+      query: (id) => `/lists/${id}`,
       providesTags: ["LISTSALL"],
     }),
     getListforStore: builder.query({
@@ -17,7 +17,7 @@ const shopListApi = createApi({
       providesTags: ["LISTALL"],
     }),
     getListforNoStore: builder.query({
-      query: ({ shoppinglist_id }) => `/lists/${shoppinglist_id}`,
+      query: ({ shoppinglist_id }) => `/list/${shoppinglist_id}`,
       providesTags: ["LISTNOSTORE"],
     }),
     patchQty: builder.mutation({
@@ -67,11 +67,12 @@ const shopListApi = createApi({
       invalidatesTags: ["LISTALL", "LISTNOSTORE"],
     }),
     postnewList: builder.mutation({
-      query: ({ shoppinglist_name }) => ({
+      query: ({ shoppinglist_name, user_id }) => ({
         url: "/lists",
         method: "POST",
         body: {
           shoppinglist_name,
+          user_id,
         },
       }),
       invalidatesTags: ["LISTSALL"],

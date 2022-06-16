@@ -20,8 +20,8 @@
   }
 }
 
-
-
+.mainselect{
+margin-bottom: 50px;
 .select{
     display: flex;
     justify-content: space-around;
@@ -60,14 +60,14 @@
             position: absolute;
             font-size: 50px;
             top: 12px;
-            left: 15px;
+            left: 16px;
             content: '\e902';
             color: white;
         }
        
        
     }
-
+  }
 
 p{
         color :$color-blue-main;
@@ -261,6 +261,7 @@ p{
               .btn_delete{
                 border: 0;
                 margin-top: 35px;
+                margin-bottom: 55px;
                 width: 100%;
                 background-color:rgb(255, 68, 68); ;
                 padding: 10px 20px 10px 20px;

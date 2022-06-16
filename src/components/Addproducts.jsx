@@ -40,6 +40,7 @@ const Addproducts = () => {
     {
       shoppinglist_id,
     },
+
     {
       pollingInterval: 0,
       refetchOnFocus: true,
@@ -50,6 +51,7 @@ const Addproducts = () => {
   const [postproductOnList] = usePostproductOnListMutation();
   const handleChange = async (product) => {
     if (product) {
+      console.log(listData);
       if (!listData.find((item) => item.product_id == product.value)) {
         if (product.__isNew__) {
           setShowDepartments(true);

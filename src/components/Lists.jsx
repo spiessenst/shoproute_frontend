@@ -3,9 +3,11 @@ import { useGetAllListsQuery } from "../store/shopListApi";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
+import { useSelector } from "react-redux";
 
 const Lists = () => {
-  const { data, isError, isLoading } = useGetAllListsQuery(undefined, {
+  const user_id = useSelector((s) => s.userState.user_id);
+  const { data, isError, isLoading } = useGetAllListsQuery(user_id, {
     pollingInterval: 0,
     refetchOnFocus: true,
     refetchOnReconnect: true,
@@ -34,7 +36,11 @@ const Lists = () => {
                 key={shoppinglist_id}
                 onClick={() =>
                   dispatch(
-                    setShoppinglist({ shoppinglist_id, shoppinglist_name })
+                    setShoppinglist({
+                      shoppinglist_id,
+                      shoppinglist_name,
+                      user_id,
+                    })
                   )
                 }
               >
