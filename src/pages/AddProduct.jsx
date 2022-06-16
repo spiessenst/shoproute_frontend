@@ -1,4 +1,3 @@
-import Stores from "../components/Stores";
 import List from "../components/List";
 import Addproducts from "../components/Addproducts";
 import DeleteList from "../components/DeleteList";

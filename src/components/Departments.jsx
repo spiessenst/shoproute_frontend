@@ -2,6 +2,7 @@ import { useGetAllDepartmentsQuery } from "../store/departmentsApi";
 import { usePostNewproductMutation } from "../store/productsApi";
 import { usePostproductOnListMutation } from "../store/shoplistApi";
 import { useSelector } from "react-redux";
+import ReactLoading from "react-loading";
 
 const Departments = ({ setShowDepartments, newProduct }) => {
   const shoppinglist_id = useSelector(
@@ -33,7 +34,16 @@ const Departments = ({ setShowDepartments, newProduct }) => {
   };
   return (
     <>
-      {isLoading && <p>loading...</p>}
+      {isLoading && (
+        <div className="Loading">
+          <ReactLoading
+            type={"bubbles"}
+            color={"#335a9f"}
+            height={"20%"}
+            width={"20%"}
+          />
+        </div>
+      )}
       {isError && <p>error...</p>}
       {data && (
         <ul className="departments">

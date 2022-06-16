@@ -2,6 +2,7 @@ import { setShoppinglist } from "../store/list";
 import { useGetAllListsQuery } from "../store/shopListApi";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import ReactLoading from "react-loading";
 
 const Lists = () => {
   const { data, isError, isLoading } = useGetAllListsQuery(undefined, {
@@ -9,10 +10,20 @@ const Lists = () => {
     refetchOnFocus: true,
     refetchOnReconnect: true,
   });
+
   const dispatch = useDispatch();
   return (
     <>
-      {isLoading && <p>loading...</p>}
+      {isLoading && (
+        <div className="Loading">
+          <ReactLoading
+            type={"bubbles"}
+            color={"#335a9f"}
+            height={"20%"}
+            width={"20%"}
+          />
+        </div>
+      )}
       {isError && <p>error...</p>}
       {data && (
         <ul className="lists">

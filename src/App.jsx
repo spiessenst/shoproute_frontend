@@ -4,6 +4,7 @@ import AddProduct from "./pages/AddProduct";
 import PreviousLists from "./pages/PreviousLists";
 import Main from "./pages/Main";
 import ChooseStore from "./pages/ChooseStore";
+import Login from "./pages/Login";
 
 import "./styles/style.scss";
 
@@ -13,7 +14,8 @@ const App = () => {
       <div className="container">
         <Logo />
         <Routes>
-          <Route path="/" element={<Main />}></Route>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/Main" element={<Main />}></Route>
           <Route path="/AddProduct" element={<AddProduct />}></Route>
           <Route path="/PreviousLists" element={<PreviousLists />}></Route>
           <Route path="/ChooseStore" element={<ChooseStore />}></Route>

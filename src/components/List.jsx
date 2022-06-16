@@ -6,6 +6,7 @@ import {
   usePatchDeleteMutation,
 } from "../store/shopListApi";
 import SingleProduct from "./SingleProduct";
+import ReactLoading from "react-loading";
 
 const List = () => {
   const store_id = useSelector((s) => s.storeState.store_id);
@@ -74,7 +75,16 @@ const List = () => {
   };
   return (
     <>
-      {isLoading && <p>loading...</p>}
+      {isLoading && (
+        <div className="Loading">
+          <ReactLoading
+            type={"bubbles"}
+            color={"#335a9f"}
+            height={"20%"}
+            width={"20%"}
+          />
+        </div>
+      )}
       {isError && <p>error...</p>}
       {data && (
         <ul className="products__list">

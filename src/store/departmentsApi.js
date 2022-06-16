@@ -4,6 +4,7 @@ const departmentsApi = createApi({
   reducerPath: "departmentsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://wdev2.be/fs_thomass/eindwerk/api",
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     getAllDepartments: builder.query({

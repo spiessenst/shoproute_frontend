@@ -67,7 +67,6 @@ const Addproducts = () => {
 
   return (
     <>
-      {isLoading1 && <p>loading...</p>}
       {isError1 && <p>error...</p>}
       {isSuccess && (
         <CreatableSelect

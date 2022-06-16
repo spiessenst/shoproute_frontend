@@ -11,7 +11,7 @@ const DeleteList = () => {
     listDelete({ shoppinglist_id });
   };
   return (
-    <Link to="/">
+    <Link to="/Main">
       <button className="btn_delete" onClick={handleClick}>
         Verwijder lijst
       </button>

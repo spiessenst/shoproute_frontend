@@ -4,6 +4,7 @@ const shopListApi = createApi({
   reducerPath: "shopListApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://wdev2.be/fs_thomass/eindwerk/api",
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     getAllLists: builder.query({
