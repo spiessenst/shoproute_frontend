@@ -2,7 +2,7 @@ import { useState } from "react";
 import { usePostLoginMutation } from "../store/loginApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/user";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
