@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const loginApi = createApi({
   reducerPath: "loginApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://wdev2.be/fs_thomass/eindwerk/api",
+    baseUrl: "https://wdev2.be/fs_thomass/eindwerk",
     credentials: "include",
   }),
   endpoints: (builder) => ({
