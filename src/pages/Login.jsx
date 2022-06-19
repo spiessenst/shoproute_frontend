@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { usePostLoginMutation } from "../store/loginApi";
+import { usePostLoginMutation, useGetUserIdQuery } from "../store/loginApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/user";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,12 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+
+  const getuser = async (name) => {
+    const url = `https://wdev2.be/fs_thomass/eindwerk/api/user/${name}`;
+    const { data: id } = await axios(url);
+    dispatch(setUser({ user: id.user_id }));
+  };
 
   const navigate = useNavigate();
 
@@ -25,9 +31,12 @@ const Login = () => {
       password,
     });
 
+    const decoded = jwt_decode(data.token);
+    await getuser(decoded.username);
+
     error && setError(true);
     data && setError(false);
-    data && dispatch(setUser({ user: data.user }));
+
     setUsername("");
     setPassword("");
     !error && navigate("/main");
