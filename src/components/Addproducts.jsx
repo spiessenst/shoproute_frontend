@@ -4,6 +4,7 @@ import {
   usePostproductOnListMutation,
   useGetListforNoStoreQuery,
 } from "../store/shoplistApi";
+import ReactLoading from "react-loading";
 
 import Departments from "./Departments";
 import { useState } from "react";
@@ -51,7 +52,6 @@ const Addproducts = () => {
   const [postproductOnList] = usePostproductOnListMutation();
   const handleChange = async (product) => {
     if (product) {
-      console.log(listData);
       if (!listData.find((item) => item.product_id == product.value)) {
         if (product.__isNew__) {
           setShowDepartments(true);
@@ -69,6 +69,16 @@ const Addproducts = () => {
 
   return (
     <>
+      {isLoading1 && (
+        <div className="Loading">
+          <ReactLoading
+            type={"bubbles"}
+            color={"#335a9f"}
+            height={"20%"}
+            width={"20%"}
+          />
+        </div>
+      )}
       {isError1 && <p>error...</p>}
       {isSuccess && (
         <CreatableSelect
