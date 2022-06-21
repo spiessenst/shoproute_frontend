@@ -12,11 +12,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  const getuser = async (name) => {
-    const url = `https://wdev2.be/fs_thomass/eindwerk/api/user/${name}`;
-    const { data: id } = await axios(url);
-    dispatch(setUser({ user: id.user_id }));
-  };
+  // const getuser = async (name) => {
+  //   const url = `https://wdev2.be/fs_thomass/eindwerk/api/user/${name}`;
+  //   const { data: id } = await axios(url);
+  //   dispatch(setUser({ user: id.user_id }));
+  // };
 
   const navigate = useNavigate();
 
@@ -31,8 +31,10 @@ const Login = () => {
       password,
     });
 
-    const decoded = jwt_decode(data.token);
-    await getuser(decoded.username);
+    // const decoded = await jwt_decode(data.token);
+    // await getuser(decoded.username);
+
+    dispatch(setUser({ user: data.id }));
 
     error && setError(true);
     data && setError(false);
