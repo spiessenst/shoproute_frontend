@@ -40,9 +40,6 @@ const loginApi = createApi({
         },
       }),
     }),
-    getUserId: builder.query({
-      query: (email) => `/user/${email}`,
-    }),
   }),
 });
 

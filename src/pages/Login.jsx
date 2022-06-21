@@ -1,22 +1,13 @@
-import { useState, useEffect } from "react";
-import { usePostLoginMutation, useGetUserIdQuery } from "../store/loginApi";
+import { useState } from "react";
+import { usePostLoginMutation } from "../store/loginApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/user";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import { useCookies } from "react-cookie";
-import axios from "axios";
 
-const Login = () => {
+const Login = ({ setisLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
-
-  // const getuser = async (name) => {
-  //   const url = `https://wdev2.be/fs_thomass/eindwerk/api/user/${name}`;
-  //   const { data: id } = await axios(url);
-  //   dispatch(setUser({ user: id.user_id }));
-  // };
+  const [errorState, setErrorState] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,17 +22,13 @@ const Login = () => {
       password,
     });
 
-    // const decoded = await jwt_decode(data.token);
-    // await getuser(decoded.username);
-
-    dispatch(setUser({ user: data.id }));
-
-    error && setError(true);
-    data && setError(false);
-
+    error && setErrorState(true);
+    data && dispatch(setUser({ user: data.id }));
     setUsername("");
     setPassword("");
+    data && !error && setisLoggedIn(true);
     !error && navigate("/main");
+    data && setErrorState(false);
   };
 
   return (
@@ -61,8 +48,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="wachtwoord"
         />
-        <input className="form__button" type="submit" />
-        {error && <p>Geen geldige login!</p>}
+        <button className="form__button" type="submit">
+          Inloggen
+        </button>
+        {errorState && <p>Geen geldige login!</p>}
       </form>
     </>
   );
