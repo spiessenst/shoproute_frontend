@@ -27,7 +27,7 @@ const Login = ({ setisLoggedIn }) => {
     setUsername("");
     setPassword("");
     data && !error && setisLoggedIn(true);
-    !error && navigate("/main");
+    data.token && !error && navigate("/main");
     data && setErrorState(false);
   };
 
